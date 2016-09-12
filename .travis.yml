@@ -1,0 +1,27 @@
+language: ruby
+rvm:
+- 2.3.1
+gemfile:
+- Gemfile
+addons:
+  postgresql: 9.4
+sudo: false
+cache: bundler
+env:
+  matrix:
+  - VAL=FOO
+before_install: rm ${BUNDLE_GEMFILE}.lock
+before_script:
+- psql -c 'create database oba_test;' -U postgres
+- bundle update
+script:
+- bundle exec rake db:schema:load
+- bundle exec rake db:test:prepare
+- bundle exec rspec
+notifications:
+  email: false
+  slack:
+    rooms:
+      secure: G1WyQKG8521a38VmSr5ynL/We1YlJ2wcNF0gdxelhFDJnhbDwvUPKgLic15U1SBcAOgNWyBQd4pT2jwTm38bo8Y/EtUysF0jesyqqbIA2huxlK5xpj5MlASdUFvqG4XksEQdD1njVe4Q+HtjOmyCPtiEqwQqepavo+vsqpUbem+QlpNiOPiKg6Nju5sXGPx6yRIbeaSrwRvpFeIGwS5Gjhh+BRYpLoZ8V4HbXyZEWoW9lgm0dKZXiJERRed8bYE7K6IDmU5I6C6XUFr9Nn4/eNeu/mn5SeRSR0FFolYxBIdm/2r2cWZzMKrfKDNj1bQvSB3FvBQCIifgSXq4LzRj2s/AQJ+OzsD016tm1cP0KFp5qeaNDTclyoTMXcIEd2BGD8cGO+jC4J7T4LA3FSLIxRvKARK2kVIvAyPwFAj/qIkPntPDC5UtWMmhMQLdMsBnjdN5wwZ/daOPrC0ahgVS/d77etYVncLCyUvkZSlt9JSYj22ST8QJxDoHUey2S7tbPj/JlHkR7dsX6LgYvGvANcsHGcLg5HFUtRqnvfjDcyXG6zwCY4Jbl66709MdPW0mOuhjqi3pfOAWF9dWbUbcTMMGB6Vazcq10HXbk1Zr2pJRRe8MyIUbK6saaAFhARxhIRMTqiIMtZwNpS1qNnNerG8O/oYZYzJeHLE7pIOsEYE=
+    on_success: change
+    on_failure: always

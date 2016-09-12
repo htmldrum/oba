@@ -1,0 +1,55 @@
+{
+  "definitions": {
+    "url": {
+      "type": "string"
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/definitions/step"
+      },
+      "type": "array"
+    },
+    "step": {
+      "definitions": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string"
+        },
+        "selector": {
+          "type": "string"
+        }
+      },
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/step/definitions/name"
+        },
+        "value": {
+          "$ref": "#/definitions/step/definitions/value"
+        },
+        "action": {
+          "$ref": "#/definitions/step/definitions/action"
+        },
+        "selector": {
+          "$ref": "#/definitions/step/definitions/selector"
+        }
+      },
+      "required": ["name", "value", "action", "selector"],
+      "type": "object"
+    }
+  },
+  "properties": {
+    "url": {
+      "$ref": "#/definitions/url"
+    },
+    "steps": {
+      "$ref": "#/definitions/steps"
+    }
+  },
+  "required": ["url", "steps"],
+  "type": "object"
+}

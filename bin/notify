@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+require 'slack-notifier'
+require 'rails'
+
+app_name = Rails.application.class.name.to_s.split('::').first
+
+notifier = Slack::Notifier.new 'https://hooks.slack.com/services/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',
+  channel: '#dev',
+  username: app_name
+
+version = `git log -p -1 | grep -iR 'commit.*' | cut -d ' ' -f 3`
+host = 'https://salty-cove-73526.herokuapp.com/'
+
+notifier.username = app_name
+notifier.ping "New version of #{app_name}::#{version} deployed to #{host}",
+  icon_emoji: ':loudspeaker:'

@@ -1,0 +1,8 @@
+{
+    "name": "Onebank API",
+    "description": "Example API for OneBank clients",
+    "image": "heroku/ruby",
+    "repository": "https://github.com/maxwellforest/oba",
+    "keywords": ["ruby", "rails" ],
+    "addons": [ "heroku-postgresql" ]
+}
